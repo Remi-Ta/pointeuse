@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pointeuse</title>
+    <title>Accueil - Pointeuse</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,22 +16,6 @@
                 <h2>Liste des Travaux</h2>
                 <button onclick="createJob()">Créer un travail</button>
                 <ul id="jobs"></ul>
-            </div>
-            <div id="time-tracker">
-                <h2>Pointeuse</h2>
-                <div id="current-job-info">
-                    <p>Sélectionnez un travail pour commencer.</p>
-                </div>
-                <div id="time-display">
-                    <p>Temps de travail aujourd'hui: <span id="today-work-time">00:00</span></p>
-                    <p>Temps depuis le dernier pointage: <span id="last-work-time">00:00</span></p>
-                    <button onclick="clockInOut()">Pointer</button>
-                    <button onclick="addPreviousTime()">Ajouter un pointage antérieur</button>
-                </div>
-                <div id="history">
-                    <h3>Historique</h3>
-                    <ul id="time-entries"></ul>
-                </div>
             </div>
         </div>
     </div>
