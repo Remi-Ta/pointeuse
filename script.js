@@ -1,6 +1,6 @@
-let jobs = [];
+let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
 let currentJob = null;
-let timeEntries = [];
+let timeEntries = JSON.parse(localStorage.getItem('timeEntries')) || [];
 
 function updateDateTime() {
     const now = new Date();
@@ -15,6 +15,7 @@ function createJob() {
     const jobColor = prompt("Couleur du travail:");
     const job = { name: jobName, color: jobColor, rounding: 0 };
     jobs.push(job);
+    localStorage.setItem('jobs', JSON.stringify(jobs));
     displayJobs();
 }
 
@@ -32,13 +33,14 @@ function displayJobs() {
 
 function selectJob(index) {
     currentJob = jobs[index];
-    document.getElementById('current-job-info').innerText = `Travail sélectionné: ${currentJob.name}`;
-    displayTimeEntries();
+    localStorage.setItem('currentJob', JSON.stringify(currentJob));
+    window.location.href = 'time_tracker.html';
 }
 
 function clockInOut() {
     const now = new Date();
     timeEntries.push({ time: now, type: 'clock' });
+    localStorage.setItem('timeEntries', JSON.stringify(timeEntries));
     displayTimeEntries();
 }
 
@@ -48,6 +50,7 @@ function addPreviousTime() {
     const now = new Date();
     const previousTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, seconds);
     timeEntries.push({ time: previousTime, type: 'manual' });
+    localStorage.setItem('timeEntries', JSON.stringify(timeEntries));
     displayTimeEntries();
 }
 
@@ -87,5 +90,15 @@ function formatTime(seconds) {
     return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 }
 
+function loadJobDetails() {
+    currentJob = JSON.parse(localStorage.getItem('currentJob'));
+    if (currentJob) {
+        document.getElementById('selected-job-name').innerText = currentJob.name;
+        displayTimeEntries();
+    }
+}
+
 setInterval(updateDateTime, 1000);
 updateDateTime();
+displayJobs();
+loadJobDetails();
